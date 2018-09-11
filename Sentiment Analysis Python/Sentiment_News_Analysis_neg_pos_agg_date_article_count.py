@@ -8,8 +8,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-os.chdir(r'C:\Users\deswint1\Desktop\Studium\BDBA Aufgabenpaket Woche 8\5-Fallstudie\1-Daten\1-HTML_Format')
-infile = 'BubbleTea_Data.csv'
+os.chdir(r'C:\Users\const\Documents\TheGroup\Data Transformation\Sample Data')
+infile = 'Speech_Recognition.csv'
 
 csv.field_size_limit(100000000)
 bloblist = list()
@@ -92,7 +92,7 @@ plt.show()
 df['positive']=df['positive'].astype(float).round(4).astype(str).str.replace('.',',')
 df['negative']=df['negative'].astype(float).round(4).astype(str).str.replace('.',',')
 
-df.to_csv('Data_Sentiment_Result.csv', sep=';', encoding='utf-8',index=False)
+df.to_csv('Data_Sentiment_Result_Speech_Recognition.csv', sep=';', encoding='utf-8',index=False)
 
 
 

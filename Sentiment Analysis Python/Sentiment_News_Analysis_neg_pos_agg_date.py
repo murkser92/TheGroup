@@ -8,8 +8,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-os.chdir(r'C:\Users\deswint1\Desktop\Studium\BDBA Aufgabenpaket Woche 8\5-Fallstudie\1-Daten\1-HTML_Format')
-infile = 'BubbleTea_Data.csv'
+os.chdir(r'C:\Users\const\Documents\TheGroup\Data Transformation\Sample Data')
+infile = '3DPrint.csv'
 
 csv.field_size_limit(100000000)
 bloblist = list()
