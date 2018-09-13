@@ -1,0 +1,3 @@
+Abstract. The social phenomenon “Hype” is theorized by using the concepts of Vastermann and Gartner. 
+The literature on scrutinizing the Gartner Hype Cycle is reviewed. We conclude that the authors mostly rely on the analysis of web searchers or article. 
+By investigating the “Bubble Tea” Hype in Germany 2011-2012 we show that sentiment analysis can add important additional insights into the course of a hype development.
