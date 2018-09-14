@@ -13,7 +13,8 @@ setwd(paste('C:/Users/deswint1/Desktop/Studium/BDBA Aufgabenpaket Woche 8/5-Fall
 number_of_files=length(list.files())
 
 for(i in 1:number_of_files){
-   if(i==1){
+  P=+1
+  if(i==1){
     
     #html datei lesen und in variable schreiben
     html <- read_html(paste(paste(searchterm,toString(i),sep=""),".html",sep = ""))
@@ -59,10 +60,20 @@ for(i in 1:number_of_files){
               contains(text(), "August ") or contains(text(), "September ") or contains(text(), "October ") or contains(text(), "November ") or contains(text(), "December ")) and not(contains(text(),".")) and not(contains(text(),"-")) and not(contains(text(),"/"))  ]')%>%
       html_text()
     ##Cleansing der Artikel und Datum
-    html_article_clean=noquote(gsub("[\r\n]", "", html_article))
+    html_article_clean=gsub("[\r\n]", "", html_article)
+    html_article_clean=gsub("[\r?\n]", "", html_article_clean)
+    html_article_clean=str_replace_all(html_article_clean, '\"', "")
+    html_article_clean=str_replace_all(html_article_clean, '""', "")
+    html_article_clean=gsub('\"', "",html_article_clean, fixed = TRUE)
+    html_article_clean=gsub('""', "",html_article_clean)
+    html_article_clean=gsub('\\\"', "",html_article_clean)
+    html_article_clean=gsub("[[:punct:]]", " ", html_article_clean)
     html_date_clean=gsub("[\r\n]", "", html_date)
     #Dataframe aus Datum und Artikel erstellen
     html_data=data.frame(Datum=html_date_clean,Artikel=html_article_clean)
+    html_article_clean[1]
+    
+
   }else{
     #html datei lesen und in variable schreiben
     html <- read_html(paste(paste(searchterm,toString(i),sep=""),".html",sep = ""))
@@ -108,7 +119,14 @@ for(i in 1:number_of_files){
                  contains(text(), "August ") or contains(text(), "September ") or contains(text(), "October ") or contains(text(), "November ") or contains(text(), "December ")) and not(contains(text(),".")) and not(contains(text(),"-")) and not(contains(text(),"/"))  ]')%>%
       html_text()
     ##Cleansing der Artikel und Datum
-    html_article_clean=noquote(gsub("[\r\n]", "", html_article))
+    html_article_clean=gsub("[\r\n]", "", html_article)
+    html_article_clean=gsub("[\r?\n]", "", html_article_clean)
+    html_article_clean=str_replace_all(html_article_clean, '\"', "")
+    html_article_clean=str_replace_all(html_article_clean, '""', "")
+    html_article_clean=gsub('\"', "",html_article_clean, fixed = TRUE)
+    html_article_clean=gsub('""', "",html_article_clean)
+    html_article_clean=gsub('\\\"', "",html_article_clean)
+    html_article_clean=gsub("[[:punct:]]", " ", html_article_clean)
     html_date_clean=gsub("[\r\n]", "", html_date)
    
      #Zusammenführen der erstellten dataframes
@@ -119,7 +137,18 @@ for(i in 1:number_of_files){
   }
 }
 
+html_data=data.frame(html_data, qoute=FALSE)
 
+
+html_data$Artikel=gsub("[\r\n]", "", html_data$Artikel)
+html_data$Artikel=gsub("[\r?\n]", "", html_data$Artikel)
+html_data$Artikel=str_replace_all(html_data$Artikel, '\"', "")
+html_data$Artikel=str_replace_all(html_data$Artikel, '""', "")
+html_data$Artikel=gsub('\"', "",html_data$Artikel, fixed = TRUE)
+html_data$Artikel=gsub('""', "",html_data$Artikel)
+html_data$Artikel=gsub('\\\"', "",html_data$Artikel)
+html_data$Artikel=gsub("[[:punct:]]", " ", html_data$Artikel)
+html_data$Artikel=gsub("[\r\n]", "", html_data$Artikel)
 
 #Rightsubstring Funktion 
 substrRight <- function(x, n){
@@ -147,8 +176,7 @@ html_data$Datum=as.Date(parse_date_time(x = html_data$Datum,
                                           orders = c("d m y", "d B Y", "m/d/y"),
                                           locale = "eng"),"ymd")
 
+
+
 #Dataframe in csv schreiben
 write.csv(file=paste(searchterm, '.csv', sep = ''),html_data)
-
-
-
